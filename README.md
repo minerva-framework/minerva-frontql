@@ -8,13 +8,13 @@ No front-end você tem as opções de comands where, operadores where, seleção
 
 ```js
 var where = [
+   'nest'
    ['isNotNull', 'email'],
    'and',
    ['isNotNull', 'name'],
+   'unnest',
    'or',
-   'nest',
    ['greatherThan', 'age', 18],
-   'unnest'
 ];
 
 var select = {
@@ -23,6 +23,9 @@ var select = {
    limit  : 20,
    order  : [['name'], 'ASC']
 };
+
+// Irá produzir algo assim.
+// SELECT name, age, email FROM ? WHERE (email != null AND name != null) OR age > 18
 
 $.post('/application/client/list', { fql : select });
 ```
