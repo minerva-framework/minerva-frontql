@@ -8,13 +8,13 @@ No front-end você tem as opções de comands where, operadores where, seleção
 
 ```js
 var where = [
-   'nest'
+   'nest',
    ['isNotNull', 'email'],
    'and',
    ['isNotNull', 'name'],
    'unnest',
    'or',
-   ['greatherThan', 'age', 18],
+   ['greaterThan', 'age', 18],
 ];
 
 var select = {
