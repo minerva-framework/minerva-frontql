@@ -21,7 +21,7 @@ var select = {
    columns: ['name', 'age', 'email' ]
    where  : where,
    limit  : 20,
-   order  : [['name'], 'ASC']
+   order  : [[['name'], 'ASC'], [['email'], 'DESC']]
 };
 
 // Irá produzir algo assim.
