@@ -43,8 +43,9 @@ Quando o payload for recebido, basta instanciar o adapter, realizar a conversão
 $payload = $this->params()->fromPost('fql');
 
 // Conversão para Zend\Db\Sql\Select
-$adapter = new Minerva\FrontQL\Select\Adapter();
-$adapter->setPayload($payload);
+$adapter = new SelectAdapter();
+$adapter->setProtectedColumns(['name']);
+$adapter->setSelectPayload(new SelectPayload($payload));
 $query = $adapter->getSelect();
 
 // Override
