@@ -66,12 +66,10 @@ Seguindo o esboço acima você receberá uma resposta nesse padrão.
 ```
 [
    {
-      name: 'Lucas',
       email: 'lucas@minervasistemas.com.br',
       idade: 21
    },
    {
-      name: null,
       email: null,
       idade: 19
    }
