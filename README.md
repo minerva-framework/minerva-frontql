@@ -24,8 +24,9 @@ var select = {
    order  : [[['name', 'idade'], 'ASC'], [['email'], 'DESC']]
 };
 
-// Irá produzir algo assim.
-// SELECT name, age, email FROM ? WHERE (email != null AND name != null) OR age > 18 ORDER BY name,idade ASC, email DESC
+// SELECT name, age, email FROM ? 
+// WHERE (email != null AND name != null) OR age > 18 
+// ORDER BY name,idade ASC, email DESC
 
 $.post('/application/client/list', { fql : select });
 ```
