@@ -1,7 +1,7 @@
 # minerva-frontql
 FrontQL é uma linguagem de queries para front-end para utilização com o Zend Framework. Utilizando o FrontQL você ganha mais flexibilidade no momento de montar suas consultas e realizar implementações de API.
 
-```
+```js
 var where = [
    ['isNotNull', 'email'],
    'and',
