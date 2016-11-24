@@ -23,12 +23,27 @@ var select = {
    order  : [['name'], 'ASC']
 };
 
-$.get('/my/api/address', { fql : select });
+$.post('/application/client/list', { fql : select });
 ```
 
 ## No back-end
 ```php
-
+// Query recebida do front-end
 $payload = $this->params()->fromPost('fql');
 
-``´
+// Conversão para Zend\Db\Sql\Select
+$adapter = new Minerva\FrontQL\Select\Adapter();
+$adapter->setPayload($payload);
+$query = $adapter->getSelect();
+
+// Override
+$query->limit(2);
+
+// Consulta
+$clientTable = new ClientTableGateway();
+$resultSet = $clientTable->select($query);
+
+// Resposta
+$response = new JsonModel($resultSet->toArray());
+return $response;
+```
