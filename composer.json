@@ -9,6 +9,16 @@
       "email": "lucas@minervasistemas.com.br"
     }
   ],
+  "autoload":{
+    "psr-4": {
+      "Minerva\\": "src"
+    }
+  },
+  "autoload-dev":{
+    "psr-4":{
+      "Tests\\": "tests"
+    }
+  },
   "require": {
     "zendframework/zend-db": "2.8.2"
   }

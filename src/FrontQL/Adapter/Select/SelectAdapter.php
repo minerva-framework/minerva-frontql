@@ -61,6 +61,9 @@ class SelectAdapter
      */
     public function getWhereAdapter()
     {
+        if(is_null($this->whereAdapter))
+            $this->whereAdapter = new WhereAdapter();
+
         return $this->whereAdapter;
     }
 
