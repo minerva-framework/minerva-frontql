@@ -18,7 +18,7 @@ var where = [
 ];
 
 var select = {
-   columns: ['name', 'age', 'email' ]
+   columns: ['name', 'age', 'email' ],
    where  : where,
    limit  : 20,
    order  : [[['name', 'idade'], 'ASC'], [['email'], 'DESC']]
