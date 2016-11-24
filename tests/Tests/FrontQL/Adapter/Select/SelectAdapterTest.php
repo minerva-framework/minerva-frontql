@@ -33,5 +33,8 @@ class SelectAdapterTest extends \PHPUnit_Framework_TestCase
         $select = $adapter->getSelect();
 
         $this->assertTrue($select instanceof Select);
+        $this->assertEquals($select->getRawState($select::LIMIT), 20);
+        $this->assertCount(2, $select->getRawState($select::COLUMNS));
+        $this->assertCount(5, $select->getRawState($select::ORDER));
     }
 }

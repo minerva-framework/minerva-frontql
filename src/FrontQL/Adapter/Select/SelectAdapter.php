@@ -75,7 +75,7 @@ class SelectAdapter
     public function getSelect()
     {
         // Remove as colunas protegidas
-        $columns = array_diff($this->getProtectedColumns(), $this->getSelectPayload()->getColumns());
+        $columns = array_diff($this->getSelectPayload()->getColumns(), $this->getProtectedColumns());
 
         // Adapta o payload ao padrão do zend
         $select = new Select();
