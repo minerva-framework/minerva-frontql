@@ -1,5 +1,5 @@
 {
-  "name": "minerva-sistemas/minerva-frontql",
+  "name": "minerva-framework/minerva-frontql",
   "description": "FrontQL é uma estrutura de queries para front-end para utilização com o Zend Framework.",
   "minimum-stability": "stable",
   "license": "proprietary",
