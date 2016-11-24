@@ -25,7 +25,7 @@ var select = {
 };
 
 // Irá produzir algo assim.
-// SELECT name, age, email FROM ? WHERE (email != null AND name != null) OR age > 18
+// SELECT name, age, email FROM ? WHERE (email != null AND name != null) OR age > 18 ORDER BY name ASC
 
 $.post('/application/client/list', { fql : select });
 ```
