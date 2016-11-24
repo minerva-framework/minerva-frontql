@@ -21,13 +21,6 @@ class SelectAdapter
     protected $selectPayload;
 
     /**
-     * Adaptador de where
-     *
-     * @var WhereAdapter
-     */
-    protected $whereAdapter;
-
-    /**
      * Colunas que não podem ser vistas
      *
      * @var array
@@ -52,29 +45,6 @@ class SelectAdapter
     public function setSelectPayload($selectPayload)
     {
         $this->selectPayload = $selectPayload;
-    }
-
-    /**
-     * Retorna adaptador de wheres
-     *
-     * @return WhereAdapter
-     */
-    public function getWhereAdapter()
-    {
-        if(is_null($this->whereAdapter))
-            $this->whereAdapter = new WhereAdapter();
-
-        return $this->whereAdapter;
-    }
-
-    /**
-     * Define o adaptador de wheres
-     *
-     * @param WhereAdapter $whereAdapter
-     */
-    public function setWhereAdapter($whereAdapter)
-    {
-        $this->whereAdapter = $whereAdapter;
     }
 
     /**
@@ -110,6 +80,7 @@ class SelectAdapter
         // Adapta o payload ao padrão do zend
         $select = new Select();
         $select->columns($columns);
+        $select->where($this->getSelectPayload()->getWhere());
         $select->order($this->getSelectPayload()->getOrder());
         $select->limit($this->getSelectPayload()->getLimit());
 

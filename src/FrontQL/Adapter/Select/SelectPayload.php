@@ -3,6 +3,7 @@
 namespace Minerva\FrontQL\Adapter\Select;
 
 use Minerva\FrontQL\Adapter\Select\Basis\Exception\InvalidColumnNameException;
+use Minerva\FrontQL\Adapter\Where\WhereAdapter;
 
 /**
  * Class SelectPayload
@@ -40,7 +41,7 @@ class SelectPayload
         if(!isset($this->payload['columns']) || !is_array($this->payload['columns']))
             return ['*'];
 
-        $regex = '^[a-zA-Z_][a-zA-Z0-9_]*$';
+        $regex = '/^[a-zA-Z_][a-zA-Z0-9_]*$/';
         $columns = array();
 
         foreach ($this->payload['columns'] as $column){
@@ -106,6 +107,9 @@ class SelectPayload
         if(!is_array($this->payload['where']))
             return [];
 
-        return $this->payload['where'];
+        $adapter = new WhereAdapter();
+        $where = $adapter->fromArray($this->payload['where']);
+
+        return $where;
     }
 }
