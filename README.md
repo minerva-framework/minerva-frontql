@@ -3,7 +3,7 @@ FrontQL é uma linguagem de queries para front-end compatível com Zend Framewor
 
 ## No Front-end
 
-No front-end você tem as opções de comands where, operadores where, seleção de colunas, limit e ordenamento.
+No front-end você tem as opções de comands where, operadores where, seleção de colunas, limit e ordenamento. Nos comands where, o primeiro elemento da array é o nome do comando no Zend Framework, e os demais parâmetros são exigidos por este. Como operadores temos and, or, nest e unnest.
 
 ```js
 var where = [
