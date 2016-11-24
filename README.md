@@ -27,6 +27,8 @@ $.post('/application/client/list', { fql : select });
 ```
 
 ## No back-end
+Quando o payload for recebido, basta instanciar o adapter, realizar a conversão, fazer os overrides se necessário, executar a query e construir a resposta.
+
 ```php
 // Query recebida do front-end
 $payload = $this->params()->fromPost('fql');
