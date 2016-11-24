@@ -2,7 +2,7 @@
 
 [![Build Status](https://scrutinizer-ci.com/g/minerva-framework/minerva-frontql/badges/build.png?b=master)](https://scrutinizer-ci.com/g/minerva-framework/minerva-frontql/build-status/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/minerva-framework/minerva-frontql/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/minerva-framework/minerva-frontql/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/minerva-framework/minerva-frontql/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/minerva-framework/minerva-frontql/?branch=master) [![Latest Stable Version](https://poser.pugx.org/minerva-sistemas/minerva-frontql/v/stable)](https://packagist.org/packages/minerva-sistemas/minerva-frontql) [![Latest Unstable Version](https://poser.pugx.org/minerva-sistemas/minerva-frontql/v/unstable)](https://packagist.org/packages/minerva-sistemas/minerva-frontql) [![License](https://poser.pugx.org/minerva-sistemas/minerva-frontql/license)](https://packagist.org/packages/minerva-sistemas/minerva-frontql)
 
-`composer require minerva-sistemas/minerva-frontql`
+`composer require minerva-framework/minerva-frontql`
 
 FrontQL é uma estrutura simplificada de queries para front-end compatível com Zend Framework. Utilizando o FrontQL você ganha mais flexibilidade no momento de montar suas consultas e realizar implementações de API, além de poupar tempo de trabalho e evitar que sejam criados diversos condicionamentos em suas actions deixando seu código desorganizado ou então com diversas implementações de estratégias desnecessárias.
 
