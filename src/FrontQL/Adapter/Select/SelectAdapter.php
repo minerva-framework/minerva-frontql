@@ -2,131 +2,92 @@
 
 namespace Minerva\FrontQL\Adapter\Select;
 
-use Minerva\FrontQL\Adapter\Select\Basis\Exception\InvalidColumnNameException;
 use Minerva\FrontQL\Adapter\Where\WhereAdapter;
+use Zend\Db\Sql\Select;
 
 /**
- * Class SelectPayload
+ * Class SelectAdapter
  *
  * @author  Lucas A. de Araújo <lucas@minervasistemas.com.br>
  * @package Minerva\FrontQL\Adapter\Select
  */
-class SelectPayload
+class SelectAdapter
 {
     /**
-     * Payload recebido do front-end
+     * Payload de seleção de dados
+     *
+     * @var SelectPayload
+     */
+    protected $selectPayload;
+
+    /**
+     * Colunas que não podem ser vistas
      *
      * @var array
      */
-    protected $payload;
+    protected $protectedColumns;
 
     /**
-     * Constrói o payload
+     * Retorna o payload de seleção
      *
-     * @param array $payload
+     * @return SelectPayload
      */
-    public function __construct(array $payload)
+    public function getSelectPayload()
     {
-        $this->payload = $payload;
+        return $this->selectPayload;
     }
 
     /**
-     * Retorna as colunas filtradas no select
-     * @return array
-     * @throws InvalidColumnNameException
+     * Define o payload de seleção
+     *
+     * @param SelectPayload $selectPayload
      */
-    public function getColumns()
+    public function setSelectPayload($selectPayload)
     {
-        // Se nenhuma coluna foi definida todas serão retornadas
-        if(!isset($this->payload['columns']) || !is_array($this->payload['columns']))
-            return ['*'];
-
-        $regex = '/^[a-zA-Z_][a-zA-Z0-9_]*$/';
-        $columns = array();
-
-        foreach ($this->payload['columns'] as $column){
-            // Valida o nome da coluna
-            if(!is_string($column) || !preg_match($regex, $column))
-                throw new InvalidColumnNameException();
-
-            $columns[] = $column;
-        }
-
-        if(count($columns) == 0)
-            return ['*'];
-
-        return $columns;
+        $this->selectPayload = $selectPayload;
     }
 
     /**
-     * Retorna o limite de linhas
-     *
-     * @return int|null
-     */
-    public function getLimit()
-    {
-        if(!isset($this->payload['limit']))
-            return 100;
-
-        if(!is_numeric($this->payload['limit']))
-            return 100;
-
-        return (int) $this->payload['limit'];
-    }
-    
-    /**
-     * Retorna o offset de linhas
-     *
-     * @return int|null
-     */
-    public function getOffset()
-    {
-        if(!isset($this->payload['offset']))
-            return 1;
-
-        if(!is_numeric($this->payload['offset']))
-            return 1;
-
-        return (int) $this->payload['offset'];
-    }
-
-    /**
-     * Retorna a ordem definida pelo usuário em string
-     *
-     * @return string
-     */
-    public function getOrder()
-    {
-        $allowed = ['ASC', 'DESC'];
-
-        if(!isset($this->payload['order']) || !is_array($this->payload['order']))
-            return '';
-
-        $orders = array();
-
-        foreach ($this->payload['order'] as $order)
-        {
-            $columns  = implode(', ', $order[0]);
-            $command  = in_array($order[1], $allowed) ? $order[1] : 'ASC';
-            $orders[] = "{$columns} {$command}";
-        }
-
-        return implode(', ', $orders);
-    }
-
-    /**
-     * Retorna o where do payload de seleção
-     *
      * @return array
      */
-    public function getWhere()
+    public function getProtectedColumns()
     {
-        if(!is_array($this->payload['where']))
-            return [];
+        if(is_null($this->protectedColumns))
+            $this->protectedColumns = [];
 
-        $adapter = new WhereAdapter();
-        $where = $adapter->fromArray($this->payload['where']);
+        return $this->protectedColumns;
+    }
 
-        return $where;
+    /**
+     * @param array $protectedColumns
+     */
+    public function setProtectedColumns($protectedColumns)
+    {
+        $this->protectedColumns = $protectedColumns;
+    }
+
+    /**
+     * Retorna a adaptação do select com base no payload
+     *
+     * @return Select
+     * @throws Basis\Exception\InvalidColumnNameException
+     */
+    public function getSelect()
+    {
+        // Remove as colunas protegidas
+        $columns = array_diff($this->getSelectPayload()->getColumns(), $this->getProtectedColumns());
+
+        // Adapta o payload ao padrão do zend
+        $select = new Select();
+
+        if(!is_null($this->getSelectPayload()->getOrder()))
+            $select->order($this->getSelectPayload()->getOrder());
+
+        $select->columns($columns);
+        $select->where($this->getSelectPayload()->getWhere());
+        $select->limit($this->getSelectPayload()->getLimit());
+        //$select->offset($this->getSelectPayload()->getOffset());
+
+        return $select;
     }
 }
