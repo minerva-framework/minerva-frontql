@@ -73,6 +73,22 @@ class SelectPayload
 
         return $this->payload['limit'];
     }
+    
+    /**
+     * Retorna o offset de linhas
+     *
+     * @return int|null
+     */
+    public function getOffset()
+    {
+        if(!isset($this->payload['offset']))
+            return null;
+
+        if(!is_int($this->payload['offset']))
+            return null;
+
+        return $this->payload['offset'];
+    }
 
     /**
      * Retorna a ordem definida pelo usuário em string
