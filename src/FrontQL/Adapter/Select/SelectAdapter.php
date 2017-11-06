@@ -83,6 +83,7 @@ class SelectAdapter
         $select->where($this->getSelectPayload()->getWhere());
         $select->order($this->getSelectPayload()->getOrder());
         $select->limit($this->getSelectPayload()->getLimit());
+        $select->offset($this->getSelectPayload()->getOffset());
 
         return $select;
     }
