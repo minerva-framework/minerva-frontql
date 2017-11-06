@@ -66,12 +66,12 @@ class SelectPayload
     public function getLimit()
     {
         if(!isset($this->payload['limit']))
-            return null;
+            return 100;
 
-        if(!is_int($this->payload['limit']))
-            return null;
+        if(!is_numeric($this->payload['limit']))
+            return 100;
 
-        return $this->payload['limit'];
+        return (int) $this->payload['limit'];
     }
     
     /**
@@ -82,12 +82,12 @@ class SelectPayload
     public function getOffset()
     {
         if(!isset($this->payload['offset']))
-            return null;
+            return 1;
 
-        if(!is_int($this->payload['offset']))
-            return null;
+        if(!is_numeric($this->payload['offset']))
+            return 1;
 
-        return $this->payload['offset'];
+        return (int) $this->payload['offset'];
     }
 
     /**
@@ -104,10 +104,11 @@ class SelectPayload
 
         $orders = array();
 
-        foreach ($this->payload['order'] as $order){
+        foreach ($this->payload['order'] as $order)
+        {
             $columns  = implode(', ', $order[0]);
             $command  = in_array($order[1], $allowed) ? $order[1] : 'ASC';
-            $orders[] = "{$columns}, {$command}";
+            $orders[] = "{$columns} {$command}";
         }
 
         return implode(', ', $orders);
