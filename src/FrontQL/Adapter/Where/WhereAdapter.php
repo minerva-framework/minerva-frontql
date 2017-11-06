@@ -40,7 +40,11 @@ class WhereAdapter
             'lesserThan',
             'lesserThanOrEqualTo',
             'isNull',
-            'isNotNull'
+            'isNotNull',
+            'and',
+            'or',
+            'nest',
+            'unnest'
         ];
     }
     
@@ -54,6 +58,7 @@ class WhereAdapter
     public function fromArray(array $jWhere)
     {
         $where = new Where();
+
         foreach($jWhere as $item){
             if(is_array($item)){
                 if(!in_array($item[0], $this->allowed)) {
@@ -61,11 +66,18 @@ class WhereAdapter
                 }
                 $method = $item[0];
                 unset($item[0]);
-                call_user_func_array([$where, $method], $item);
+                $where = call_user_func_array([$where, $method], $item);
             }
             if(is_string($item)){
                 if(in_array($item, $this->allowed))
-                    call_user_func([$where, $item]);
+                    if($item == 'and')
+                        $where = $where->and;
+                    else if ($item == 'or')
+                       $where = $where->or;
+                    else if ($item == 'nest')
+                        $where = $where->nest();
+                    else if ($item == 'unnest')
+                        $where = $where->unnest();
             }
         }
         return $where;
