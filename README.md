@@ -11,28 +11,24 @@ FrontQL é uma estrutura simplificada de queries para front-end compatível com 
 No front-end você tem as opções de comands where, operadores where, seleção de colunas, limit e ordenamento. Nos comands where, o primeiro elemento da array é o nome do comando no Zend Framework, e os demais parâmetros são exigidos por este. Como operadores temos and, or, nest e unnest.
 
 ```js
-var where = [
-   'nest',
-   ['isNotNull', 'email'],
-   'and',
-   ['isNotNull', 'name'],
-   'unnest',
-   'or',
-   ['greaterThan', 'age', 18],
-];
-
 var select = {
-   columns: ['name', 'age', 'email' ],
-   where  : where,
-   limit  : 20,
-   order  : [[['name', 'idade'], 'ASC'], [['email'], 'DESC']]
+   where  : [
+      'nest',
+      ['equalTo', 'Campanha.idcampanha', 11],
+      'and',
+      ['equalTo', 'Campanha.ativo', 1],
+      'unnest',
+      'or',
+      ['equalTo', 'Campanha.idcampanha', 12]
+   ],
+   limit  : 5,
+   offset : 0,
+   order  : [
+      [['Campanha.idcampanha'], 'DESC']
+   ],
 };
-
-// SELECT name, age, email FROM ? 
-// WHERE (email != null AND name != null) OR age > 18 
-// ORDER BY name,idade ASC, email DESC
-
-$.post('/application/client/list', { fql : select });
+            
+return ApiClient.post('/crm/api/v1/campanha/select', {fql: select});
 ```
 
 ## No back-end
