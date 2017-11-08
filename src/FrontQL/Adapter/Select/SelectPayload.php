@@ -66,10 +66,10 @@ class SelectPayload
     public function getLimit()
     {
         if(!isset($this->payload['limit']))
-            return null;
+            return 500;
 
         if(!is_numeric($this->payload['limit']))
-            return null;
+            return 500;
 
         return (int) $this->payload['limit'];
     }
@@ -82,10 +82,10 @@ class SelectPayload
     public function getOffset()
     {
         if(!isset($this->payload['offset']))
-            return 500;
+            return null;
 
         if(!is_numeric($this->payload['offset']))
-            return 500;
+            return null;
 
         return (int) $this->payload['offset'];
     }
