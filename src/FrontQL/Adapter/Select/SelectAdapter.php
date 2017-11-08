@@ -85,8 +85,12 @@ class SelectAdapter
 
         $select->columns($columns);
         $select->where($this->getSelectPayload()->getWhere());
-        $select->limit($this->getSelectPayload()->getLimit());
-        //$select->offset($this->getSelectPayload()->getOffset());
+        
+        if(!empty($this->getSelectPayload()->getLimit()))
+          $select->limit($this->getSelectPayload()->getLimit());
+        
+        if(!empty($this->getSelectPayload()->getOffset()))
+           $select->offset($this->getSelectPayload()->getOffset());
 
         return $select;
     }
