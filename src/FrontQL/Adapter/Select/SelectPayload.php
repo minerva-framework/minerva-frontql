@@ -82,10 +82,10 @@ class SelectPayload
     public function getOffset()
     {
         if(!isset($this->payload['offset']))
-            return null;
+            return 0;
 
         if(!is_numeric($this->payload['offset']))
-            return null;
+            return 0;
 
         return (int) $this->payload['offset'];
     }
