@@ -66,10 +66,10 @@ class SelectPayload
     public function getLimit()
     {
         if(!isset($this->payload['limit']))
-            return 100;
+            return null;
 
         if(!is_numeric($this->payload['limit']))
-            return 100;
+            return null;
 
         return (int) $this->payload['limit'];
     }
@@ -100,7 +100,7 @@ class SelectPayload
         $allowed = ['ASC', 'DESC'];
 
         if(!isset($this->payload['order']) || !is_array($this->payload['order']))
-            return '';
+            return null;
 
         $orders = array();
 
